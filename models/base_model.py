@@ -5,16 +5,30 @@ defines all common attributes/methods for other classes
 
 import uuid
 from datetime import datetime
+import models
 
 
 class BaseModel:
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """
-        Initialize nwq Base Model"""
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = self.created_at
-
+        Initialize nwq Base Model
+        """
+        if kwargs:
+            for key, value in kwargs.items():
+                if key == 'created_at' or key == 'updated_at':
+                    setattr(
+                            self, key, datetime.strptime
+                            (
+                                value, '%Y-%m-%dT%H:%M:%S.%f'
+                                )
+                            )
+                elif key != "__class__":
+                    setattr(self, key, value)
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = self.created_at
+            models.storage.new(self)
 
     def __str__(self):
         return "[{}] ({}) {}".format(
@@ -26,6 +40,7 @@ class BaseModel:
         updated_at with the current datetime
         """
         self.updated_at = datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         """
