@@ -2,6 +2,7 @@
 """entry point of the command interpreter:"""
 import cmd
 
+
 class HBNBCommand(cmd.Cmd):
     """HBNBCommand interpreter """
     prompt = "(hbnb) "
@@ -17,6 +18,7 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """shouldn’t execute anything"""
         pass
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
