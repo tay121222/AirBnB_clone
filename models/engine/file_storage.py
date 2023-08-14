@@ -36,3 +36,6 @@ class FileStorage:
                 class_name, obj_id = key.split('.')
                 class_ref = eval(class_name)
                 FileStorage.__objects[key] = class_ref(**value)
+
+    def classes(self):
+        return {'BaseModel': BaseModel}
