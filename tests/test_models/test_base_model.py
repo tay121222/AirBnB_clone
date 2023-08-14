@@ -171,6 +171,10 @@ class TestFileStorage(unittest.TestCase):
         all_objects = self.storage.all()
         self.assertEqual(len(all_objects), 0)
 
+    def test_file_path_exists(self):
+        fs = FileStorage()
+        self.assertTrue(hasattr(fs, '_FileStorage__file_path'))
+        self.assertIsInstance(fs._FileStorage__file_path, str)
 
 if __name__ == '__main__':
     unittest.main()
