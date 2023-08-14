@@ -13,14 +13,14 @@ class TestBaseModel(unittest.TestCase):
 
     def setUp(self):
         self.storage = FileStorage()
-        FileStorage._FileStorage__objects = {}
-        if os.path.isfile(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
 
     def tearDown(self):
-        FileStorage._FileStorage__objects = {}
-        if os.path.isfile(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
+        try:
+            FileStorage._FileStorage__objects = {}
+            if os.path.isfile(FileStorage._FileStorage__file_path):
+                os.remove(self.storage._FileStorage__file_path)
+        except FileNotFoundError:
+            pass
 
     def test_attributes(self):
         obj = BaseModel()
@@ -173,6 +173,12 @@ class TestBaseModel(unittest.TestCase):
         fs = FileStorage()
         self.assertTrue(hasattr(fs, '_FileStorage__file_path'))
         self.assertIsInstance(fs._FileStorage__file_path, str)
+
+    def test_file_path_attribute(self):
+        self.assertEqual(self.storage._FileStorage__file_path, "file.json")
+
+    def test_objects_attribute(self):
+        self.assertEqual(self.storage._FileStorage__objects, {})
 
 if __name__ == '__main__':
     unittest.main()
