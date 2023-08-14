@@ -180,5 +180,23 @@ class TestBaseModel(unittest.TestCase):
     def test_objects_attribute(self):
         self.assertEqual(self.storage._FileStorage__objects, {})
 
+    def test_save_created_at_type(self):
+        obj = BaseModel()
+        obj.save()
+        file_path = "file.json"
+        with open(file_path, "r") as file:
+            content = file.read()
+            self.assertIn('"created_at": "{}"'.format(
+                obj.created_at.isoformat()), content
+                )
+
+    def test_save_updated_at_type(self):
+        obj = BaseModel()
+        obj.save()
+        file_path = "file.json"
+        with open(file_path, "r") as file:
+            content = file.read()
+            self.assertIn('"updated_at": "{}"'.format(obj.updated_at.isoformat()), content)
+
 if __name__ == '__main__':
     unittest.main()
