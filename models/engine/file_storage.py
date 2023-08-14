@@ -3,6 +3,8 @@
 import json
 import os
 from models.base_model import BaseModel
+from models.user import User
+
 
 class FileStorage:
     """serializes instances to a JSON file and
@@ -38,4 +40,4 @@ class FileStorage:
                 FileStorage.__objects[key] = class_ref(**value)
 
     def classes(self):
-        return {'BaseModel': BaseModel}
+        return {'BaseModel': BaseModel, 'User': User}
