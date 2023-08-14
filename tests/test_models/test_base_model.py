@@ -11,6 +11,17 @@ import os
 class TestBaseModel(unittest.TestCase):
     """Unittest cases for base_class I can think of"""
 
+    def setUp(self):
+        self.storage = FileStorage()
+        FileStorage._FileStorage__objects = {}
+        if os.path.isfile(FileStorage._FileStorage__file_path):
+            os.remove(FileStorage._FileStorage__file_path)
+
+    def tearDown(self):
+        FileStorage._FileStorage__objects = {}
+        if os.path.isfile(FileStorage._FileStorage__file_path):
+            os.remove(FileStorage._FileStorage__file_path)
+
     def test_attributes(self):
         obj = BaseModel()
         self.assertTrue(hasattr(obj, 'id'))
@@ -117,19 +128,6 @@ class TestBaseModel(unittest.TestCase):
         instance.value = 456
         instance.save()
         self.assertNotEqual(original_updated_at, instance.updated_at)
-
-
-class TestFileStorage(unittest.TestCase):
-    def setUp(self):
-        self.storage = FileStorage()
-        FileStorage._FileStorage__objects = {}
-        if os.path.isfile(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
-
-    def tearDown(self):
-        FileStorage._FileStorage__objects = {}
-        if os.path.isfile(FileStorage._FileStorage__file_path):
-            os.remove(FileStorage._FileStorage__file_path)
 
     def test_all_empty(self):
         all_objects = self.storage.all()
