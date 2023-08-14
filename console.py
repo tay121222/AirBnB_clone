@@ -114,7 +114,7 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     instance = instances[key]
                     attr_name = args[2]
-                    if attr_name in instance.__dict__:
+                    if hasattr(instance, attr_name):
                         try:
                             setattr(instance, attr_name, eval(args[3]))
                             instance.save()
