@@ -107,21 +107,15 @@ class HBNBCommand(cmd.Cmd):
             key = "{}.{}".format(args[0], args[1])
             instances = storage.all()
             if key in instances:
+                instance = instances[key]
                 if len(args) < 3:
                     print("** attribute name missing **")
                 elif len(args) < 4:
                     print("** value missing **")
                 else:
-                    instance = instances[key]
                     attr_name = args[2]
-                    if hasattr(instance, attr_name):
-                        try:
-                            setattr(instance, attr_name, eval(args[3]))
-                            instance.save()
-                        except Exception:
-                            pass
-                    else:
-                        pass
+                    setattr(instance, attr_name, args[3])
+                    instance.save()
             else:
                 print("** no instance found **")
 
