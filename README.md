@@ -12,6 +12,6 @@ Each task is linked and will help you to:
     create the first abstracted storage engine of the project: File storage.
     create all unittests to validate all our classes and storage engine
 
-    Contributors
+    CONTRIBUTORS
     Enoch Taylor <tay121222@gmail.com>
     FRINGS Nyong <unwananyong2021@gmail.com>
