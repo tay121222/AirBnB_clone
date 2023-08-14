@@ -11,3 +11,7 @@ Each task is linked and will help you to:
     create all classes used for AirBnB (User, State, City, Place…) that inherit from BaseModel
     create the first abstracted storage engine of the project: File storage.
     create all unittests to validate all our classes and storage engine
+
+    Contributors
+    Enoch Taylor <tay121222@gmail.com>
+    FRINGS Nyong <unwananyong2021@gmail.com>
