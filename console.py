@@ -4,11 +4,33 @@ import cmd
 import sys
 from models import storage
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
     """HBNBCommand interpreter """
     prompt = "(hbnb) "
+
+    def onecmd(self, line):
+        """Class to allow the format <class name>.all()"""
+
+        if line == "quit":
+            return True
+        parts = line.split('.')
+        if len(parts) == 2 and parts[1] == 'all()':
+            class_name = parts[0]
+            if class_name in storage.classes():
+                instances = storage.all()
+                print([str(instance) for instance in instances.values() if instance.__class__.__name__ == class_name])
+            else:
+                print("** class doesn't exist **")
+        else:
+            super().onecmd(line)
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
@@ -46,16 +68,14 @@ class HBNBCommand(cmd.Cmd):
         Prints all string representation of all
         instances based or not on the class name
         """
-        instances = storage.all()
-        if not arg:
+        args = arg.split()
+        if args and args[0] in storage.classes():
+            instances = storage.all()
+            class_name = args[0]
+            print([str(instance) for instance in instances.values() if instance.__class__.__name__ == class_name])
+        elif not args:
+            instances = storage.all()
             print([str(instances[key]) for key in instances])
-        elif arg in storage.classes():
-            print(
-                    [str(
-                        instances[key]
-                        )
-                        for key in instances if key.split(".")[0] == arg]
-                    )
         else:
             print("** class doesn't exist **")
 
