@@ -124,12 +124,13 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             print("** class name missing **")
         else:
-            try:
-                new_instance = eval(arg)()
+            class_name = arg.split()[0]
+            if class_name not in storage.classes():
+                print("** class doesn't exist **")
+            else:
+                new_instance = storage.classes()[class_name]()
                 new_instance.save()
                 print(new_instance.id)
-            except NameError:
-                print("** class doesn't exist **")
 
     def do_show(self, arg):
         """Print String Representation"""
