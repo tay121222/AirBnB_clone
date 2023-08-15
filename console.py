@@ -22,38 +22,6 @@ class HBNBCommand(cmd.Cmd):
         """shouldn’t execute anything"""
         pass
 
-    def do_create(self, arg):
-        """Creates a new instance of BaseModel"""
-        if not arg:
-            print("** class name missing **")
-        else:
-            try:
-                new_instance = eval(arg)()
-                new_instance.save()
-                print(new_instance.id)
-            except NameError:
-                print("** class doesn't exist **")
-
-    def do_show(self, arg):
-        """Prints the string representation of an
-        instance based on the class name and id
-        """
-        if not arg:
-            print("** class name missing **")
-            return
-        args = arg.split()
-        if args[0] not in storage.classes():
-            print("** class doesn't exist **")
-        elif len(args) < 2:
-            print("** instance id missing **")
-        else:
-            key = "{}.{}".format(args[0], args[1])
-            instances = storage.all()
-            if key in instances:
-                print(instances[key])
-            else:
-                print("** no instance found **")
-
     def do_destroy(self, arg):
         """Deletes an instance based on the class name and id"""
         if not arg:
