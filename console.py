@@ -22,11 +22,16 @@ class HBNBCommand(cmd.Cmd):
         if line == "quit":
             return True
         parts = line.split('.')
-        if len(parts) == 2 and parts[1] == 'all()':
-            class_name = parts[0]
+        if len(parts) == 2:
+            class_name, command = parts
             if class_name in storage.classes():
-                instances = storage.all()
-                print([str(instance) for instance in instances.values() if instance.__class__.__name__ == class_name])
+                if command == "all()":
+                    instances = storage.all()
+                    print([str(instance) for instance in instances.values() if instance.__class__.__name__ == class_name])
+                elif command == 'count()':
+                    instances = storage.all()
+                    count = len([instance for instance in instances.values() if instance.__class__.__name__ == class_name])
+                    print(count)
             else:
                 print("** class doesn't exist **")
         else:
