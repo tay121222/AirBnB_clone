@@ -40,6 +40,30 @@ class HBNBCommand(cmd.Cmd):
                         print(instances[key])
                     else:
                         print("** no instance found **")
+                elif command.startswith('destroy("') and command.endswith('")'):
+                    id_str = command[9:-2]
+                    instances = storage.all()
+                    key = "{}.{}".format(class_name, id_str)
+                    if key in instances:
+                        del instances[key]
+                        storage.save()
+                    else:
+                        print("** no instance found **")
+                elif command.startswith('update("') and command.endswith('")'):
+                    parts = command.split(', ')
+                    if len(parts) != 3:
+                        return
+                    id_str = parts[0][8:-1]
+                    attribute_name = parts[1][1:-1]
+                    attribute_value = parts[2][1:-2]
+                    instances = storage.all()
+                    key = "{}.{}".format(class_name, id_str)
+                    if key in instances:
+                        instance = instances[key]
+                        setattr(instance, attribute_name, attribute_value)
+                        instance.save()
+                    else:
+                        print("** no instance found **")
             else:
                 print("** class doesn't exist **")
         else:
