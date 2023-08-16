@@ -32,6 +32,14 @@ class HBNBCommand(cmd.Cmd):
                     instances = storage.all()
                     count = len([instance for instance in instances.values() if instance.__class__.__name__ == class_name])
                     print(count)
+                elif command.startswith('show("') and command.endswith('")'):
+                    id_str = command[6:-2]
+                    instances = storage.all()
+                    key = "{}.{}".format(class_name, id_str)
+                    if key in instances:
+                        print(instances[key])
+                    else:
+                        print("** no instance found **")
             else:
                 print("** class doesn't exist **")
         else:
