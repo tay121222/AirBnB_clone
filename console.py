@@ -64,6 +64,23 @@ class HBNBCommand(cmd.Cmd):
                         instance.save()
                     else:
                         print("** no instance found **")
+                elif command.startswith('update("') and command.endswith('")'):
+                    parts = command.split(', ')
+                    if len(parts) != 2:
+                        print("** Unknown syntax: {}.{} **".format(class_name, command))
+                        return
+                    id_str = parts[0][8:-1]
+                    dictionary_str = parts[1][1:-2]
+                    dictionary = eval("{" + dictionary_str + "}")
+                    instances = storage.all()
+                    key = "{}.{}".format(class_name, id_str)
+                    if key in instances:
+                        instance = instances[key]
+                        for attr, value in dictionary.items():
+                            setattr(instance, attr, value)
+                        instance.save()
+                    else:
+                        print("** no instance found **")
             else:
                 print("** class doesn't exist **")
         else:
