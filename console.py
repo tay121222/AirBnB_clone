@@ -64,7 +64,7 @@ class HBNBCommand(cmd.Cmd):
                         instance.save()
                     else:
                         print("** no instance found **")
-                elif command.startswith('update("') and command.endswith('")'):
+                elif command.startswith('update("') and command.endswith('})'):
                     parts = command.split(', ')
                     if len(parts) != 2:
                         print("** Unknown syntax: {}.{} **".format(class_name, command))
