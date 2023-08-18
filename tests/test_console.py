@@ -43,7 +43,7 @@ class TestHBNBCommand(unittest.TestCase):
         self.console = HBNBCommand()
 
     def tearDown(self):
-        pass
+        storage.clear_all()
 
     def test_emptyline(self):
         with patch("sys.stdout", new=StringIO()) as output:
@@ -114,6 +114,12 @@ class TestHBNBCommand(unittest.TestCase):
             obj = BaseModel()
             self.console.do_destroy("BaseModel " + obj.id)
             self.assertEqual(storage.all(), {})
+
+    def test_destroy_base_model_id(self):
+        with patch("sys.stdout", new=StringIO()) as output:
+            obj = BaseModel()
+            self.console.do_destroy("BaseModel " + obj.id)
+            self.assertFalse(obj.id in storage.all().keys())
 
     def test_destroy_user(self):
         with patch("sys.stdout", new=StringIO()) as output:
