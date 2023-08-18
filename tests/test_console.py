@@ -117,9 +117,8 @@ class TestHBNBCommand(unittest.TestCase):
 
     def test_destroy_base_model_id(self):
         with patch("sys.stdout", new=StringIO()) as output:
-            obj = BaseModel()
-            self.console.do_destroy("BaseModel " + obj.id)
-            self.assertFalse(obj.id in storage.all().keys())
+            self.console.onecmd("BaseModel.destroy(\"123\")")
+            self.assertEqual("** no instance found **", output.getvalue().strip())
 
     def test_destroy_user(self):
         with patch("sys.stdout", new=StringIO()) as output:
@@ -127,6 +126,11 @@ class TestHBNBCommand(unittest.TestCase):
             obj_id = obj.id
             self.console.do_destroy("User " + obj_id)
             self.assertIsNone(storage.all().get("User." + obj_id))
+
+    def test_destroy_user_id(self):
+        with patch("sys.stdout", new=StringIO()) as output:
+            self.console.onecmd("User.destroy(\"John\")")
+            self.assertEqual("** no instance found **", output.getvalue().strip())
 
     def test_destroy_city(self):
         with patch("sys.stdout", new=StringIO()) as output:
