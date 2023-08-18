@@ -55,8 +55,9 @@ class HBNBCommand(cmd.Cmd):
                         print(instances[key])
                     else:
                         print("** no instance found **")
-                elif command.startswith('destroy("')
-                and command.endswith('")'):
+                elif command.startswith(
+                        'destroy("'
+                        ) and command.endswith('")'):
                     id_str = command[9:-2]
                     instances = storage.all()
                     key = "{}.{}".format(class_name, id_str)
