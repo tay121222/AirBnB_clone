@@ -36,10 +36,16 @@ class HBNBCommand(cmd.Cmd):
             if class_name in storage.classes():
                 if command == "all()":
                     instances = storage.all()
-                    print([str(instance) for instance in instances.values() if instance.__class__.__name__ == class_name])
+                    print(
+                            [str(instance) for instance in instances.values()
+                                if instance.__class__.__name__ == class_name]
+                            )
                 elif command == 'count()':
                     instances = storage.all()
-                    count = len([instance for instance in instances.values() if instance.__class__.__name__ == class_name])
+                    count = len(
+                            [instance for instance in instances.values()
+                                if instance.__class__.__name__ == class_name]
+                            )
                     print(count)
                 elif command.startswith('show("') and command.endswith('")'):
                     id_str = command[6:-2]
@@ -49,7 +55,8 @@ class HBNBCommand(cmd.Cmd):
                         print(instances[key])
                     else:
                         print("** no instance found **")
-                elif command.startswith('destroy("') and command.endswith('")'):
+                elif command.startswith('destroy("')
+                and command.endswith('")'):
                     id_str = command[9:-2]
                     instances = storage.all()
                     key = "{}.{}".format(class_name, id_str)
@@ -86,7 +93,10 @@ class HBNBCommand(cmd.Cmd):
                         else:
                             print("** no instance found **")
                     else:
-                        print("** Unknown syntax: {}.{} **".format(class_name, command))
+                        print(
+                                "** Unknown syntax: {}.{} **"
+                                .format(class_name, command)
+                                )
             else:
                 print("** class doesn't exist **")
         else:
@@ -132,7 +142,10 @@ class HBNBCommand(cmd.Cmd):
         if args and args[0] in storage.classes():
             instances = storage.all()
             class_name = args[0]
-            print([str(instance) for instance in instances.values() if instance.__class__.__name__ == class_name])
+            print(
+                    [str(instance) for instance in instances.values()
+                        if instance.__class__.__name__ == class_name]
+                    )
         elif not args:
             instances = storage.all()
             print([str(instances[key]) for key in instances])
