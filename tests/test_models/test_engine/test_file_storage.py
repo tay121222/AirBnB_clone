@@ -73,5 +73,6 @@ class TestFileStorage(unittest.TestCase):
     def test_objects_attribute(self):
         self.assertEqual(self.storage._FileStorage__objects, {})
 
+
 if __name__ == '__main__':
     unittest.main()
