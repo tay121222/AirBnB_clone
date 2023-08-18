@@ -76,8 +76,7 @@ class TestHBNBCommand(unittest.TestCase):
                 self.console.do_create("InvalidModel")
                 self.assertFalse(mock_save.called)
                 self.assertEqual(
-                        output.getvalue().strip(), '
-                        '"** class doesn't exist **")
+                        output.getvalue().strip(), "** class doesn't exist **")
 
     def test_show_base_model(self):
         with patch("sys.stdout", new=StringIO()) as output:
