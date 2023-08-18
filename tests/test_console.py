@@ -62,16 +62,22 @@ class TestHBNBCommand(unittest.TestCase):
 
     def test_do_create(self):
         with patch("sys.stdout", new=StringIO()) as output:
-            with patch('models.engine.file_storage.FileStorage.save') as mock_save:
+            with patch(
+                    'models.engine.file_storage.FileStorage.save'
+                    ) as mock_save:
                 self.console.do_create("BaseModel")
                 self.assertTrue(mock_save.called)
                 self.assertEqual(output.getvalue().startswith(''), True)
 
         with patch("sys.stdout", new=StringIO()) as output:
-            with patch('models.engine.file_storage.FileStorage.save') as mock_save:
+            with patch(
+                    'models.engine.file_storage.FileStorage.save'
+                    ) as mock_save:
                 self.console.do_create("InvalidModel")
                 self.assertFalse(mock_save.called)
-                self.assertEqual(output.getvalue().strip(), "** class doesn't exist **")
+                self.assertEqual(
+                        output.getvalue().strip(), '
+                        '"** class doesn't exist **")
 
     def test_show_base_model(self):
         with patch("sys.stdout", new=StringIO()) as output:
@@ -260,55 +266,74 @@ class TestHBNBCommand(unittest.TestCase):
 
     def test_review_update_method(self):
         with patch("sys.stdout", new=StringIO()) as output:
-            self.console.onecmd('Review.update("202", "name", "Great inspiration")')
+            self.console.onecmd(
+                    'Review.update("202", "name", "Great inspiration")'
+                    )
             self.assertIn("** no instance found **", output.getvalue())
 
     def test_base_model_update_dict_method(self):
         with patch("sys.stdout", new=StringIO()) as output:
-            self.console.onecmd('BaseModel.update("123", {"name": "Ransford"})')
+            self.console.onecmd(
+                    'BaseModel.update("123", {"name": "Ransford"})'
+                    )
             self.assertIn("** no instance found **", output.getvalue())
 
     def test_user_update_dict(self):
         with patch("sys.stdout", new=StringIO()) as output:
             obj = User()
-            self.console.onecmd('User.update("' + obj.id + '", { "first_name": "mathew" })')
+            self.console.onecmd(
+                    'User.update("' + obj.id + '", { "first_name": "mathew" })'
+                    )
             updated_obj = storage.all()["User." + obj.id]
             self.assertEqual(updated_obj.first_name, "mathew")
 
     def test_state_update_dict(self):
         with patch("sys.stdout", new=StringIO()) as output:
             obj = State()
-            self.console.onecmd('State.update("' + obj.id + '", { "name": "New York" })')
+            self.console.onecmd(
+                    'State.update("' + obj.id + '", { "name": "New York" })'
+                    )
             updated_obj = storage.all()["State." + obj.id]
             self.assertEqual(updated_obj.name, "New York")
 
     def test_amenity_update_dict(self):
         with patch("sys.stdout", new=StringIO()) as output:
             obj = Amenity()
-            self.console.onecmd('Amenity.update("' + obj.id + '", { "name": "Wifi" })')
+            self.console.onecmd(
+                    'Amenity.update("' + obj.id + '", { "name": "Wifi" })'
+                    )
             updated_obj = storage.all()["Amenity." + obj.id]
             self.assertEqual(updated_obj.name, "Wifi")
 
     def test_city_update_dict(self):
         with patch("sys.stdout", new=StringIO()) as output:
             obj = City()
-            self.console.onecmd('City.update("' + obj.id + '", { "name": "New York" })')
+            self.console.onecmd(
+                    'City.update("' + obj.id + '", { "name": "New York" })'
+                    )
             updated_obj = storage.all()["City." + obj.id]
             self.assertEqual(updated_obj.name, "New York")
 
     def test_place_update_dict(self):
         with patch("sys.stdout", new=StringIO()) as output:
             obj = Place()
-            self.console.onecmd('Place.update("' + obj.id + '", { "name": "Luxury Suite" })')
+            self.console.onecmd(
+                    'Place.update("' + obj.id + '", { '
+                    '"name": "Luxury Suite" })'
+                    )
             updated_obj = storage.all()["Place." + obj.id]
             self.assertEqual(updated_obj.name, "Luxury Suite")
 
     def test_review_update_dict(self):
         with patch("sys.stdout", new=StringIO()) as output:
             obj = Review()
-            self.console.onecmd('Review.update("' + obj.id + '", { "text": "Great experience" })')
+            self.console.onecmd(
+                    'Review.update("' + obj.id + '", { '
+                    '"text": "Great experience" })'
+                    )
             updated_obj = storage.all()["Review." + obj.id]
             self.assertEqual(updated_obj.text, "Great experience")
+
 
 if __name__ == '__main__':
     unittest.main()
