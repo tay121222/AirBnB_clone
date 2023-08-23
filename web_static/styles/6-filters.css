@@ -86,7 +86,7 @@ ul {
 }
 
 
-h3{
+.amenities h3, .locations h3{
 	font-weight: 600;
 	margin-top: 17px;
 	padding: 0px;
@@ -94,7 +94,7 @@ h3{
 	padding-left: 15px;
 }
 
-h4{
+.amenities h4, .locations h4{
 	font-weight: 400;
 	font-size: 14px;
 	margin: 0px;
