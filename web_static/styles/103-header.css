@@ -1,0 +1,33 @@
+header {
+	background-color: #FF5A5F;
+	color: #FFFFFF;
+	padding: 10px 0;
+	border-bottom: 1px solid #CCCCCC;
+	text-align:center;
+}
+
+.header h1 {
+	font-size:30px;
+	margin:0;
+}
+
+body {
+	font-family: Arial, sans-serif;
+	color: #333
+	line-height: 1.6;
+}
+
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.logo {
+	width: 140px;
+	height: 50px;
+	background-image: url('../images/logo.png');
+	background-repeat: no-repeat;
+	background-size: contain;
+	margin-left: 20px;
+}
